@@ -7,8 +7,12 @@
   var WA_PHONE = '8617751189576';
   var STORAGE_KEY = 'kiwl_lang';
 
+  var TEASER_KEY = 'kiwl_chat_teaser_seen';
+
   var TEXT = {
     en: {
+      toggleLabel: 'Live Chat',
+      teaser: 'Need help? Chat with us now!',
       agentName: 'KIWL Support',
       agentStatus: 'Online · Sales team',
       greet: 'Hello! Welcome to CHING KING WHALE MACHINE GROUP 👋',
@@ -22,6 +26,8 @@
       userHi: 'Hi, I would like more information.',
     },
     fr: {
+      toggleLabel: 'Chat en direct',
+      teaser: 'Besoin d\'aide ? Discutez avec nous !',
       agentName: 'Support KIWL',
       agentStatus: 'En ligne · Équipe commerciale',
       greet: 'Bonjour ! Bienvenue chez CHING KING WHALE MACHINE GROUP 👋',
@@ -184,6 +190,33 @@
     if (status) status.textContent = t('agentStatus');
   }
 
+  function updateToggle() {
+    var label = document.getElementById('kiwl-chat-toggle-label');
+    var teaser = document.getElementById('kiwl-chat-teaser-text');
+    if (label) label.textContent = t('toggleLabel');
+    if (teaser) teaser.textContent = t('teaser');
+  }
+
+  function hideTeaser() {
+    var teaser = document.getElementById('kiwl-chat-teaser');
+    if (teaser) teaser.classList.remove('is-visible');
+    try {
+      localStorage.setItem(TEASER_KEY, '1');
+    } catch (e) { /* ignore */ }
+  }
+
+  function showTeaserOnce() {
+    try {
+      if (localStorage.getItem(TEASER_KEY)) return;
+    } catch (e) { /* ignore */ }
+    var teaser = document.getElementById('kiwl-chat-teaser');
+    if (!teaser) return;
+    setTimeout(function () {
+      teaser.classList.add('is-visible');
+    }, 1500);
+    setTimeout(hideTeaser, 10000);
+  }
+
   function updateFooter() {
     var btn = document.getElementById('kiwl-chat-wa-btn');
     var note = document.getElementById('kiwl-chat-footer-note');
@@ -199,6 +232,7 @@
   function setLang(lang) {
     state.lang = lang === 'fr' ? 'fr' : 'en';
     updateHeader();
+    updateToggle();
     updateFooter();
     if (state.open && state.started) {
       state.started = false;
@@ -209,9 +243,12 @@
   function toggle(open) {
     state.open = open !== undefined ? open : !state.open;
     var panel = document.getElementById('kiwl-chat-panel');
+    var btn = document.getElementById('kiwl-chat-toggle');
     if (!panel) return;
     panel.classList.toggle('is-open', state.open);
+    if (btn) btn.classList.toggle('is-open', state.open);
     if (state.open) {
+      hideTeaser();
       runConversation();
       updateFooter();
     }
@@ -241,9 +278,14 @@
           '<p class="kiwl-chat-footer-note" id="kiwl-chat-footer-note"></p>' +
         '</div>' +
       '</div>' +
+      '<div id="kiwl-chat-teaser" role="status">' +
+        '<button type="button" class="kiwl-chat-teaser-close" id="kiwl-chat-teaser-close" aria-label="Close">&times;</button>' +
+        '<span id="kiwl-chat-teaser-text"></span>' +
+      '</div>' +
       '<button type="button" id="kiwl-chat-toggle" aria-label="Open chat" aria-expanded="false">' +
         '<span class="kiwl-chat-badge" aria-hidden="true"></span>' +
         '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg>' +
+        '<span id="kiwl-chat-toggle-label"></span>' +
       '</button>';
 
     document.body.appendChild(root);
@@ -258,8 +300,21 @@
       document.getElementById('kiwl-chat-toggle').setAttribute('aria-expanded', 'false');
     });
 
+    var teaserClose = document.getElementById('kiwl-chat-teaser-close');
+    if (teaserClose) teaserClose.addEventListener('click', hideTeaser);
+
+    document.querySelectorAll('.online a.online-5').forEach(function (link) {
+      link.addEventListener('click', function (e) {
+        e.preventDefault();
+        toggle(true);
+        document.getElementById('kiwl-chat-toggle').setAttribute('aria-expanded', 'true');
+      });
+    });
+
     updateHeader();
+    updateToggle();
     updateFooter();
+    showTeaserOnce();
   }
 
   function hookI18n() {

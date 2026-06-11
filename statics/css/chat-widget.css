@@ -1,66 +1,170 @@
-/* KIWL floating chat widget */
+/* KIWL floating chat widget — prominent FAB */
 #kiwl-chat-root {
   --kiwl-chat-primary: #1a5276;
   --kiwl-chat-accent: #25d366;
+  --kiwl-chat-orange: #ff7d11;
   --kiwl-chat-bg: #fff;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 14px;
   line-height: 1.5;
-  z-index: 99999;
+  z-index: 999999;
   position: fixed;
-  right: 20px;
-  bottom: 90px;
+  right: 64px;
+  bottom: 24px;
 }
 
 #kiwl-chat-toggle {
-  width: 58px;
-  height: 58px;
-  border: none;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #1a5276 0%, #2874a6 100%);
-  color: #fff;
-  cursor: pointer;
-  box-shadow: 0 4px 16px rgba(26, 82, 118, 0.45);
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 10px;
+  height: 60px;
+  padding: 0 22px 0 18px;
+  border: none;
+  border-radius: 30px;
+  background: linear-gradient(135deg, #ff7d11 0%, #ff9500 50%, #ff7d11 100%);
+  background-size: 200% 100%;
+  color: #fff;
+  cursor: pointer;
+  box-shadow:
+    0 6px 24px rgba(255, 125, 17, 0.55),
+    0 2px 8px rgba(0, 0, 0, 0.15);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
-  position: relative;
+  animation: kiwl-chat-shimmer 3s ease infinite;
+}
+
+#kiwl-chat-toggle::before {
+  content: '';
+  position: absolute;
+  inset: -8px;
+  border-radius: 38px;
+  border: 3px solid rgba(255, 125, 17, 0.65);
+  animation: kiwl-chat-ring 2.2s ease-out infinite;
+  pointer-events: none;
 }
 
 #kiwl-chat-toggle:hover {
-  transform: scale(1.06);
-  box-shadow: 0 6px 20px rgba(26, 82, 118, 0.55);
+  transform: scale(1.05) translateY(-2px);
+  box-shadow:
+    0 10px 32px rgba(255, 125, 17, 0.65),
+    0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+#kiwl-chat-toggle.is-open {
+  animation: none;
+  background: #1a5276;
+  box-shadow: 0 4px 16px rgba(26, 82, 118, 0.45);
+}
+
+#kiwl-chat-toggle.is-open::before {
+  display: none;
 }
 
 #kiwl-chat-toggle svg {
-  width: 28px;
-  height: 28px;
+  width: 30px;
+  height: 30px;
   fill: currentColor;
+  flex-shrink: 0;
+}
+
+#kiwl-chat-toggle-label {
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
 }
 
 #kiwl-chat-toggle .kiwl-chat-badge {
   position: absolute;
-  top: -2px;
-  right: -2px;
-  width: 14px;
-  height: 14px;
+  top: 4px;
+  right: 4px;
+  width: 16px;
+  height: 16px;
   background: #25d366;
   border: 2px solid #fff;
   border-radius: 50%;
-  animation: kiwl-chat-pulse 2s infinite;
+  animation: kiwl-chat-pulse 1.5s infinite;
+}
+
+@keyframes kiwl-chat-shimmer {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes kiwl-chat-ring {
+  0% {
+    transform: scale(1);
+    opacity: 0.85;
+  }
+  70%, 100% {
+    transform: scale(1.18);
+    opacity: 0;
+  }
 }
 
 @keyframes kiwl-chat-pulse {
   0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.7; transform: scale(1.1); }
+  50% { opacity: 0.75; transform: scale(1.15); }
+}
+
+#kiwl-chat-teaser {
+  position: absolute;
+  right: 0;
+  bottom: 72px;
+  max-width: 220px;
+  padding: 10px 14px;
+  background: #fff;
+  color: #333;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.4;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  opacity: 0;
+  transform: translateY(8px);
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+#kiwl-chat-teaser::after {
+  content: '';
+  position: absolute;
+  right: 28px;
+  bottom: -8px;
+  border: 8px solid transparent;
+  border-top-color: #fff;
+}
+
+#kiwl-chat-teaser.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+#kiwl-chat-teaser-close {
+  position: absolute;
+  top: 4px;
+  right: 6px;
+  background: none;
+  border: none;
+  color: #999;
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 2px 4px;
+}
+
+#kiwl-chat-teaser-close:hover {
+  color: #333;
 }
 
 #kiwl-chat-panel {
   display: none;
   position: absolute;
   right: 0;
-  bottom: 70px;
+  bottom: 76px;
   width: 340px;
   max-width: calc(100vw - 40px);
   background: var(--kiwl-chat-bg);
@@ -265,13 +369,32 @@
   text-align: center;
 }
 
-@media (max-width: 480px) {
+@media (max-width: 768px) {
   #kiwl-chat-root {
-    right: 12px;
-    bottom: 80px;
+    right: 16px;
+    bottom: 20px;
   }
+
+  #kiwl-chat-toggle {
+    width: 62px;
+    height: 62px;
+    padding: 0;
+    border-radius: 50%;
+  }
+
+  #kiwl-chat-toggle-label {
+    display: none;
+  }
+
+  #kiwl-chat-teaser {
+    right: -4px;
+    max-width: 200px;
+  }
+}
+
+@media (max-width: 480px) {
   #kiwl-chat-panel {
-    width: calc(100vw - 24px);
+    width: calc(100vw - 32px);
     right: -8px;
   }
 }
