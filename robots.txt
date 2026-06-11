@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+Disallow: /neirongtuisong/
+Disallow: /scripts/
+
+Sitemap: https://www.kiwlmachine.com/sitemap.xml
