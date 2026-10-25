@@ -402,13 +402,13 @@
 						</div>
 			<div id="pages" class="text-c"></div>
             <p style="margin-bottom:10px">
-            <strong>相关热词搜索：</strong><a href="../../index.php?m=content&c=tag&a=lists&tag=edible" class="blue" data-lang-en="edible" data-lang-fr="edible">edible</a> 	<a href="../../index.php?m=content&c=tag&a=lists&tag=oil" class="blue" data-lang-en="oil" data-lang-fr="oil">oil</a> 	<a href="../../index.php?m=content&c=tag&a=lists&tag=filling" class="blue" data-lang-en="filling" data-lang-fr="filling">filling</a> 	<a href="../../index.php?m=content&c=tag&a=lists&tag=machine" class="blue" data-lang-en="machine" data-lang-fr="machine">machine</a> 	            </p>
+            <strong>相关热词搜索：</strong><a href="/" class="blue" data-lang-en="edible" data-lang-fr="edible">edible</a> 	<a href="/" class="blue" data-lang-en="oil" data-lang-fr="oil">oil</a> 	<a href="/" class="blue" data-lang-en="filling" data-lang-fr="filling">filling</a> 	<a href="/" class="blue" data-lang-en="machine" data-lang-fr="machine">machine</a> 	            </p>
             <p class="f14">
                 <strong>上一篇：</strong><a href="javascript:alert('第一页');">第一页</a><br />
                 <strong>下一篇：</strong><a href="javascript:alert('最后一页');">最后一页</a>
             </p>
                                             <div class="bk15"></div>
-            <script type="text/javascript" src="../../index.php?m=mood&c=index&a=init&id=16-40-1"></script>      </div>
+                  </div>
       <div class="Article-Tool">
           分享到：
 		  <img src="http://v.t.qq.com/share/images/s/weiboicon16.png" style="padding-bottom:3px;" onclick="postToWb();" class="cu" data-lang-title-en="分享到腾讯微博" data-lang-title-fr="分享到腾讯微博" data-lang-title-en="分享到腾讯微博" data-lang-title-fr="分享到腾讯微博" data-lang-title-en="分享到腾讯微博" data-lang-title-fr="分享到腾讯微博" title="分享到腾讯微博"/><script type="text/javascript">
@@ -434,7 +434,7 @@
 
 	  </div>
       <div class="bk10"></div>
-            <iframe src="../../index.php?m=comment&c=index&a=init&commentid=content_16-40-1&iframe=1" width="100%" height="100%" id="comment_iframe" frameborder="0" scrolling="no"></iframe>
+            
       <div class="box">
         		<h5>评论排行</h5>
 				             	<ul class="content list blue f14 row-2">
@@ -463,9 +463,7 @@
 		var keywords = $(obj).text();
 		var offset = $(obj).offset();
 		var jsonitem = '';
-		$.getJSON("../../index.php/index.html?m=content&c=index&a=json_list&type=keyword&modelid=1&id=40&keywords="+encodeURIComponent(keywords),
-				function(data){
-				var j = 1;
+		
 				var string = "<div class='point key-float'><div style='position:relative'><div class='arro'></div>";
 				string += "<a href='JavaScript:;' onclick='$(this).parent().parent().remove();' hidefocus='true' class='close'><span data-lang-en="关闭" data-lang-fr="关闭">关闭</span></a><div class='contents f12'>";
 				if(data!=0) {
