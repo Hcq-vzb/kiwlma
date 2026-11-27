@@ -195,7 +195,7 @@ function uniqueDescription(relPath, title, curDesc) {
   }
 
   if (norm === 'contact-us/index.html') {
-    return 'Contact CHING KING WHALE MACHINE GROUP for beverage filling machine quotes. Tel: +86-18551189248, email: cathy@kiwlmachine.com.';
+    return 'Contact CHING KING WHALE MACHINE GROUP for beverage filling machine quotes. Tel: +86-18151132311, email: cathy@kiwlmachine.com.';
   }
 
   if (norm === 'products/index.html') {
@@ -294,7 +294,7 @@ const ORG_SCHEMA = `<script type="application/ld+json">
   "description": "Professional beverage machinery manufacturer with 20+ years experience in filling lines for water, juice, wine, oil and more.",
   "contactPoint": {
     "@type": "ContactPoint",
-    "telephone": "+86-18551189248",
+    "telephone": "+86-18151132311",
     "contactType": "sales",
     "email": "cathy@kiwlmachine.com",
     "availableLanguage": ["English", "French"]
