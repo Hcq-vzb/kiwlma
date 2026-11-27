@@ -112,7 +112,7 @@ function Get-OrganizationSchema() {
   "description": "Professional beverage machinery manufacturer with 20+ years experience in filling lines for water, juice, wine, oil and more.",
   "contactPoint": {
     "@type": "ContactPoint",
-    "telephone": "+86-18551189248",
+    "telephone": "+86-18151132311",
     "contactType": "sales",
     "email": "cathy@kiwlmachine.com",
     "availableLanguage": ["English", "French"]
